@@ -1,0 +1,24 @@
+{
+  "name": "teste-regressao_cypress-api-nextjs",
+  "version": "1.0.0",
+  "description": "Teste de regressão",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test:cy:open": " cypress open",
+    "test:all": "cypress run",
+    "test:regress": "cypress run --env TAGS=@regress",
+    "test:rest": "cypress run --env TAGS=@rest"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/support/step_definitions/**/*"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "chai": "^5.2.0",
+    "cypress": "^14.2.0"
+  }
+}
