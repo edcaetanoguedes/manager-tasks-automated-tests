@@ -1,4 +1,4 @@
-<h1>🔧 Tema do projeto: Gerenciador de Tarefas (To-Do List)
+<h1>🔧 Testes Automatizados: Gerenciador de Tarefas (To-Do List)
     <img src="https://img.shields.io/static/v1?label=STATUS&message=1ª VERSÃO&color=GREEN&style=for-the-badge" width="150" height="25" />
     <img src="https://visitor-badge.laobi.icu/badge?page_id=teste-regressao_cypress-api-nextjs&" />
 </h1>
