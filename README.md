@@ -47,6 +47,7 @@ Fase 4:
 - ### Clone do repositório
   - Execute `git clone https://github.com/edcaetanoguedes/manager-tasks-backend.git`.
   - Acesse a pasta do repositório `cd manager-tasks-backend`.
+  - Execute `npm install` para instalar as dependências.
 - ### Rodando o projeto
   - Execute `npm run dev`.
   - Por padrão o backend. Rodará em [http://localhost:4000](http://localhost:4000).
@@ -55,6 +56,7 @@ Fase 4:
 - ### Clone do repositório 
   - Execute `git clone https://github.com/edcaetanoguedes/manager-tasks-frontend.git`.
   - Acesse a pasta do repositório `cd manager-tasks-frontend`.
+  - Execute `npm install` para instalar as dependências.
 - ### Rodando o projeto
   - Execute `npm run dev`.
   - Por padrão o backend. Rodará em [http://localhost:3000](http://localhost:3000).
@@ -63,6 +65,7 @@ Fase 4:
   - ### Clone do repositório 
     - Execute `git clone https://github.com/edcaetanoguedes/manager-tasks-automated-tests.git`.
     - Acesse a pasta do repositório `cd manager-tasks-automated-tests`.  
+    - Execute `npm install` para instalar as dependências.
   - ### Rodando os testes
   - `npm run test:cy:open` Roda a interface.
   - `npm run test:all` Roda tudo em terminal.
