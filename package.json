@@ -7,10 +7,19 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "prepare": "husky install",
     "test:cy:open": " cypress open",
     "test:all": "cypress run",
     "test:regress": "cypress run --env TAGS=@regress",
     "test:rest": "cypress run --env TAGS=@rest"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/support/step_definitions/**/*"
@@ -20,5 +29,13 @@
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "chai": "^5.2.0",
     "cypress": "^14.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "commitizen": "^4.3.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.5.3"
   }
 }
