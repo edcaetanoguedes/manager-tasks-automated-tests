@@ -1,6 +1,6 @@
 # 🔧 Testes Automatizados: Gerenciador de Tarefas (To-Do List)
 
-<img src=" https://img.shields.io/badge/Status-EM_CONSTRUÇÃO-00FF00" width="150" height="25" />
+<img src=" https://img.shields.io/badge/Status-EM_CONSTRUÇÃO-GREEN" width="150" height="25" />
 <img src="https://visitor-badge.laobi.icu/badge?page_id=manager-tasks-automated-tests&" />
 
 <div class="author">
