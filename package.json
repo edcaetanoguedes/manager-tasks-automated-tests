@@ -1,7 +1,7 @@
 {
-  "name": "teste-regressao_cypress-api-nextjs",
+  "name": "manager-tasks-automated-tests",
   "version": "1.0.0",
-  "description": "Teste de regressão",
+  "description": "Teste Automatizados com Cypress, Cucumber",
   "license": "ISC",
   "author": "",
   "type": "commonjs",
