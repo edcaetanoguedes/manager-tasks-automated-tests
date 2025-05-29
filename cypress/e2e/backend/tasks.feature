@@ -72,9 +72,22 @@ Feature: Gerenciamento de tarefas
 
   @regress @backend @rest @negative
   Scenario: Consultar tarefa inexistente pelo ID
+    Given que a tarefa a ser pesquisada não exista
+    When eu envio uma requisição para obter detalhes da tarefa
+    Then ao não retornar os detalhes da tarefa inexistente recebo o código 400
+    Then o corpo da tarefa não deve conter "id", "text", "status", "data de criação"
 
   @regress @backend @rest @negative
-  Scenario: Atualizar dados de uma tarefa inexistente
+  Scenario: Atualizar status de uma tarefa inexistente
+    Given que a tarefa a ser atualizada não exista
+    When eu envio uma requisição para atualizar o status da tarefa para "concluído"
+    Then ao tentar atualizar status da tarefa recebo o código 400
+
+  @regress @backend @rest @negative
+  Scenario: Atualizar texto de uma tarefa inexistente
+    Given que a tarefa a ser atualizada não exista
+    When eu envio uma requisição para atualizar o texto da tarefa
+    Then ao tentar atualizar texto da tarefa recebo o código 400
 
   @regress @backend @rest @negative
   Scenario: Tentar deletar uma tarefa que não existe

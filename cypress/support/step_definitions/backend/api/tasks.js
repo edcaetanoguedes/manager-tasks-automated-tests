@@ -199,7 +199,11 @@ When("eu envio uma requisição para obter todas as tarefas", () => {
     url: BACKEND_ENDPOINT_TASKS,
     headers: { ...HEADERS },
     failOnStatusCode: false,
-  }).as("response");
+  })
+    .as("response")
+    .then((response) => {
+      cy.log("tasks.length: " + response.body.length);
+    });
 });
 
 Then("o status da resposta para o GET deve ser 200", () => {
@@ -228,7 +232,7 @@ Then(
 
 // Scenario: Deletar uma tarefa existente
 Given("que uma tarefa recém criada existe", () => {
-  cy.wrap("@last_new_task_id").should("exist");
+  cy.wrap(last_new_task_id).should("exist");
 });
 
 When("eu envio uma requisição DELETE", () => {
@@ -252,9 +256,66 @@ Then("o status da resposta para o DELETE deve ser 200", () => {
   });
 });
 
+// Scenario: Consultar tarefa inexistente pelo ID
+
+Given("que a tarefa a ser pesquisada não exista", () => {
+  cy.wrap(last_new_task_id).should("exist");
+});
+
+// When ("eu envio uma requisição para obter detalhes da tarefa", () => {})
+
+Then(
+  "ao não retornar os detalhes da tarefa inexistente recebo o código 400",
+  () => {
+    cy.get("@response").then((response) => {
+      expect(response.status).to.eq(400);
+    });
+  },
+);
+
+Then(
+  'o corpo da tarefa não deve conter "id", "text", "status", "data de criação"',
+  () => {
+    cy.get("@response").then((response) => {
+      expect(response.body).to.not.have.all.keys(
+        "id",
+        "text",
+        "status",
+        "creation",
+      );
+    });
+  },
+);
+
+// Scenario: Atualizar status de uma tarefa inexistente
+
+// Given ("que a tarefa a ser atualizada não exista", () => {})
+
+// When ('eu envio uma requisição para atualizar o status da tarefa para "concluído"', () => {})
+
+Then("ao tentar atualizar status da tarefa recebo o código 400", () => {
+  cy.get("@response").then((response) => {
+    expect(response.status).to.eq(400);
+  });
+});
+
+// Scenario: Atualizar texto de uma tarefa inexistente
+
+Given("que a tarefa a ser atualizada não exista", () => {
+  cy.wrap(last_new_task_id).should("exist");
+});
+
+// When ("eu envio uma requisição para atualizar o texto da tarefa", () => {})
+
+Then("ao tentar atualizar texto da tarefa recebo o código 400", () => {
+  cy.get("@response").then((response) => {
+    expect(response.status).to.eq(400);
+  });
+});
+
 // Scenario: Tentar deletar uma tarefa que não existe
 Given("que acabei de deletar uma tarefa", () => {
-  cy.wrap("@last_new_task_id").should("exist");
+  cy.wrap(last_new_task_id).should("exist");
 });
 
 When('eu envio uma requisição DELETE com o "id" desta tarefa', () => {
@@ -267,7 +328,7 @@ When('eu envio uma requisição DELETE com o "id" desta tarefa', () => {
     })
       .as("response")
       .then((response) => {
-        cy.log(response.body);
+        cy.log(JSON.stringify(response.body));
       });
   });
 });
@@ -294,7 +355,11 @@ When(
       url: `${BACKEND_ENDPOINT_TASKS}/status`,
       headers: { ...HEADERS },
       failOnStatusCode: false,
-    }).as("response");
+    })
+      .as("response")
+      .then((response) => {
+        cy.log("tasks_options_of_status.length: " + response.body.length);
+      });
   },
 );
 
