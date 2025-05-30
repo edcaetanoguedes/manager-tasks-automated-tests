@@ -37,7 +37,8 @@ Fase 2:
 
 Fase 3:
 
-- [x] Testes E2E.
+- [x] Testes de Backend/API.
+- [ ] Testes de Frontend.
 
 Fase 4:
 
