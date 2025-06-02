@@ -37,8 +37,12 @@ Fase 2:
 
 Fase 3:
 
-- [x] Testes de Backend/API.
-- [ ] Testes de Frontend.
+- Testes de Backend/API.
+  - [x] Implementação dos testes regressivos
+    - Para conferir a primeira versão de teste: `git tag v1.0.0-test-backend`.
+- Testes de Frontend.
+  - [x] Implementação dos testes E2E
+    - Para conferir a primeira versão de teste:`git tag v1.0.0-test-frontend`.
 
 Fase 4:
 
