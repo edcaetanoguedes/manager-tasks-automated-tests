@@ -74,15 +74,22 @@ Fase 4:
   - Por padrão o backend. Rodará em [http://localhost:3000](http://localhost:3000).
 
 - ### Testes:
+
   - ### Clone do repositório
     - Execute `git clone https://github.com/edcaetanoguedes/manager-tasks-automated-tests.git`.
     - Acesse a pasta do repositório `cd manager-tasks-automated-tests`.
     - Execute `npm install` para instalar as dependências.
   - ### Rodando os testes
   - `npm run test:cy:open` Roda a interface.
-  - `npm run test:all` Roda tudo em terminal.
-  - `npm run test:regress` Roda somente os testes regressivos, no caso com a tag @regress
-  - `npm run test:rest` Roda somente os testes de api, no caso com a tag @rest
+  - `npm run test:cy:all` Roda todos os testes em terminal (log visível).
+  - `test:cy:backend` Roda somente os testes de backend.
+  - `test:cy:frontend` Roda somente os testes de frontend.
+  - `npm run test:cy:regress` Roda somente os testes regressivos (tag @regress).
+  - `npm run test:cy:rest` Roda somente os testes de api (tag @rest).
+  - `test:cy:silent:regress` Roda somente o regressivo, porém no modo silencioso.
+  - `test:cy:silent:backend` Roda somente o backend, porém no modo silencioso.
+  - `test:cy:silent:frontend` Roda somente o frontend, porém no modo silencioso.
+  - `test:cy:silent:rest` Roda somente a api, porém no modo silencioso.
 
 ## Stacks
 
