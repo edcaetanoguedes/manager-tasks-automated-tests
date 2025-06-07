@@ -36,6 +36,7 @@
     "commitizen": "^4.3.1",
     "husky": "^8.0.0",
     "lint-staged": "^16.0.0",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "wait-on": "^8.0.3"
   }
 }
