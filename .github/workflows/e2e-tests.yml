@@ -23,7 +23,7 @@ jobs:
 
       - name: Iniciar a aplicação (porta 4000)
         working-directory: backend
-        run: node server.js &
+        run: npm run dev &
 
       - name: Esperar a aplicação estar disponível
         run: npx wait-on http://localhost:4000
