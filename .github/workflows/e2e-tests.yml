@@ -1,4 +1,4 @@
-name: E2E Tests on manager-tasks-backend
+name: Backend Automated Tests on manager-tasks-backend
 
 on:
   workflow_dispatch: # permite execução manual na aba "Actions"
@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: edcaetanoguedes/manager-tasks-backend
-          token: ${{ secrets.GH_PERSONAL_TOKEN }}
+          token: ${{ secrets.GH_MANAGER_TASKS_TESTS_TOKEN }}
           path: backend
 
       - name: Instalar dependências da aplicação
@@ -39,4 +39,4 @@ jobs:
 
       - name: Executar os testes Cypress
         working-directory: tests
-        run: npm run test:rest
+        run: npm run test:cy:backend
