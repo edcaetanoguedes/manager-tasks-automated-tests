@@ -9,7 +9,7 @@ on:
         required: true # torna obrigatório
         type: string # tipo recebido
     secrets: # permissões necessárias
-      GH_PERSONAL_TOKEN: # secret que contém o token que dá/limita permissões
+      GH_MANAGER_TASKS_TESTS_TOKEN: # secret que contém o token que dá/limita permissões
         required: true # torna obrigatório
 
 jobs:
