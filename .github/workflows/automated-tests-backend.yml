@@ -1,40 +1,61 @@
+# Contexto: Repositório de Testes PÚBLICO somente com testes Cypress
 name: Backend Automated Tests on manager-tasks-backend
 
 on:
   workflow_dispatch: # permite execução manual na aba "Actions"
+  workflow_call: # permite ser chamado por outro workflow
+    inputs: # permite receber parâmetros externos
+      current-branch: # nome do parâmetro que será recebido
+        required: true # torna obrigatório
+        type: string # tipo recebido
+    secrets: # permissões necessárias
+      GH_PERSONAL_TOKEN: # secret que contém o token que dá/limita permissões
+        required: true # torna obrigatório
 
 jobs:
-  run-tests:
+  backend-e2e-tests:
+    name: Testes Automatizados E2E (Backend)
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Clonar o repositório da aplicação (manager-tasks-backend)
+    steps: # Tarefas do job
+      - name: Mostrar nome da branch a ser testada
+        run: |
+          echo "Branch: ${{ inputs.current-branch }}"
+      
+      - name: Clonar repositório (backend)
         uses: actions/checkout@v4
         with:
-          repository: edcaetanoguedes/manager-tasks-backend
+          repository: edcaetanoguedes/manager-tasks-backend # Ambos os repos deve estar na mesma conta/organização
+          # Token da conta com permissões
           token: ${{ secrets.GH_MANAGER_TASKS_TESTS_TOKEN }}
-          path: backend
+          # Define uma pasta com nome onde o repo será clonado
+          # Bom pra quando se lida com mais de um projeto (ex: frontend, backend)
+          path: manager-tasks-backend
+          # Define qual branch/tag será clonada
+          ref: ${{ inputs.current-branch }}
 
-      - name: Instalar dependências da aplicação
-        working-directory: backend
-        run: npm install
+      - name: Instalar dependências (backend)
+        working-directory: manager-tasks-backend # Seta a pasta definida em path
+        run: npm ci
 
-      - name: Iniciar a aplicação (porta 4000)
-        working-directory: backend
+      - name: Iniciar aplicação na porta 4000 (backend)
+        working-directory: manager-tasks-backend # Seta a pasta definida em path
         run: npm run dev &
 
-      - name: Esperar a aplicação estar disponível
+      - name: Esperar a aplicação estar disponível (backend)
         run: npx wait-on http://localhost:4000
 
-      - name: Clonar os testes deste repositório
+      - name: Clonar repositório de testes
         uses: actions/checkout@v4
         with:
-          path: tests
+          repository: edcaetanoguedes/manager-tasks-automated-tests
+          path: manager-tasks-automated-tests
 
-      - name: Instalar dependências dos testes
-        working-directory: tests
-        run: npm install
+      - name: Instalar dependências (tests)
+        working-directory: manager-tasks-automated-tests
+        run: npm ci
 
-      - name: Executar os testes Cypress
-        working-directory: tests
+      - name: Executar testes
+        working-directory: manager-tasks-automated-tests
+        # Comando para rodar os testes
         run: npm run test:cy:backend
