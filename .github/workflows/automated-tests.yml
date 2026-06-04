@@ -57,6 +57,11 @@ jobs:
             npm run cy:run 2>&1 | tee test-output.txt
           fi
 
+      - name: Debug output
+        if: always()
+        run: |
+          tail -100 test-output.txt
+    
       - name: Consolidar contagem de testes
         if: always()
         shell: bash
