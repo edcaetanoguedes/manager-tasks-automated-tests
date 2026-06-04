@@ -8,12 +8,12 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "test:cy:open": " cypress open",
-    "test:cy:all": "cypress run",
-    "test:cy:regress": "cypress run --env TAGS=@regress",
-    "test:cy:backend": "cypress run --env TAGS=@backend",
-    "test:cy:frontend": "cypress run --env TAGS=@frontend",
-    "test:cy:rest": "cypress run --env TAGS=@rest"
+    "cy:open": " cypress open",
+    "cy:run": "cypress run",
+    "cy:regress": "cypress run --env TAGS=@regress",
+    "cy:backend": "cypress run --env TAGS=@backend",
+    "cy:frontend": "cypress run --env TAGS=@frontend",
+    "cy:rest": "cypress run --env TAGS=@rest"
   },
   "config": {
     "commitizen": {
