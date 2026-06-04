@@ -1,12 +1,32 @@
-name: Automated Tests (Backend)
+name: Automated Tests (All)
 
 on:
-  workflow_dispatch: # permite execução manual na aba "Actions"
-  workflow_call: # permite ser chamado por outro workflow
-    inputs: # permite receber parâmetros externos
-      current-branch: # nome do parâmetro que será recebido
-        required: true # torna obrigatório
-        type: string # tipo recebido
+  workflow_dispatch:
+    inputs:
+      BRANCH:
+        description: Branch da aplicação
+        required: true
+        default: main
+        type: choice
+        options:
+          - main
+          - develop
+          - staging
+      TAGS:
+        description: Tags
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      BRANCH:
+        description: Branch da aplicação
+        required: false
+        default: main
+        type: string
+      TAGS:
+        description: Tags
+        required: true
+        type: string
     secrets: # permissões necessárias
       GH_MANAGER_TASKS_TESTS_TOKEN: # secret que contém o token que dá/limita permissões
         required: true # torna obrigatório
@@ -16,9 +36,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Mostrar nome da branch a ser testada
+      - name: Show loaded inputs
         run: |
-          echo "Branch: ${{ inputs.current-branch }}"
+          echo "Application branch: ${{ inputs.BRANCH }}"
+          echo "Tags: ${{ inputs.TAGS }}"
 
       - name: Clonar repositório (backend)
         uses: actions/checkout@v4
@@ -30,7 +51,7 @@ jobs:
           # Bom pra quando se lida com mais de um projeto (ex: frontend, backend)
           path: manager-tasks-backend
           # Define qual branch/tag será clonada
-          ref: ${{ inputs.current-branch }}
+          ref: ${{ inputs.BRANCH }}
 
       - name: Instalar dependências (backend)
         working-directory: manager-tasks-backend # Seta a pasta definida em path
@@ -39,11 +60,34 @@ jobs:
       - name: Iniciar aplicação na porta 4000 (backend)
         working-directory: manager-tasks-backend
         run: |
-          npm run dev > backend.log 2>&1 &
+          npm start > backend.log 2>&1 &
 
       - name: Esperar a aplicação estar disponível (backend)
         working-directory: manager-tasks-backend # Seta a pasta definida em path
         run: npx wait-on http://localhost:4000
+
+        #
+
+      - name: Clonar repositório (Frontend)
+        uses: actions/checkout@v4
+        with:
+          repository: edcaetanoguedes/manager-tasks-frontend
+          token: ${{ secrets.GH_MANAGER_TASKS_TESTS_TOKEN }}
+          path: manager-tasks-frontend
+          ref: ${{ inputs.BRANCH }}
+
+      - name: Instalar dependências (frontend)
+        working-directory: manager-tasks-frontend # Seta a pasta definida em path
+        run: npm ci
+
+      - name: Iniciar aplicação na porta 3000 (frontend)
+        working-directory: manager-tasks-frontend
+        run: |
+          npm run dev > frontend.log 2>&1 &
+
+      - name: Esperar a aplicação estar disponível (frontend)
+        working-directory: manager-tasks-frontend # Seta a pasta definida em path
+        run: npx wait-on http://localhost:3000
 
         #
 
@@ -60,8 +104,14 @@ jobs:
 
       - name: Acceptance Test
         working-directory: manager-tasks-automated-tests
-        # Comando para rodar os testes
-        run: npm run cy:backend
+        run: |
+          set -o pipefail
+          TAGS="${{ inputs.TAGS }}"
+          if [ -n "$TAGS" ]; then
+            npm run cy:run -- --env TAGS="$TAGS" 2>&1 | tee test-output.txt
+          else
+            npm run cy:run 2>&1 | tee test-output.txt
+          fi
 
       - name: Carregar métricas
         working-directory: manager-tasks-automated-tests
@@ -86,3 +136,8 @@ jobs:
         if: always()
         working-directory: manager-tasks-backend
         run: tail -200 backend.log
+
+      - name: Frontend Logs
+        if: always()
+        working-directory: manager-tasks-frontend
+        run: tail -200 frontend.log

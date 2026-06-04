@@ -121,3 +121,4 @@ cypress/reports/*
 cypress/screenshots/*
 cypress/videos/*
 *node_modules/*
+reports/*

@@ -46,6 +46,7 @@ Fase 3:
 
 Fase 4:
 
+- [x] Workflow de testes automatizados.
 - [ ] Relatório: Análise/Revisão do projeto.
 
 ## Instalação
@@ -69,27 +70,24 @@ Fase 4:
   - Acesse a pasta do repositório `cd manager-tasks-frontend`.
   - Execute `npm install` para instalar as dependências.
 - ### Rodando o projeto
-
   - Execute `npm run dev`.
   - Por padrão o backend. Rodará em [http://localhost:3000](http://localhost:3000).
 
 - ### Testes:
-
   - ### Clone do repositório
     - Execute `git clone https://github.com/edcaetanoguedes/manager-tasks-automated-tests.git`.
     - Acesse a pasta do repositório `cd manager-tasks-automated-tests`.
     - Execute `npm install` para instalar as dependências.
   - ### Rodando os testes
-  - `npm run test:cy:open` Roda a interface.
-  - `npm run test:cy:all` Roda todos os testes em terminal (log visível).
-  - `test:cy:backend` Roda somente os testes de backend.
-  - `test:cy:frontend` Roda somente os testes de frontend.
-  - `npm run test:cy:regress` Roda somente os testes regressivos (tag @regress).
-  - `npm run test:cy:rest` Roda somente os testes de api (tag @rest).
-  - `test:cy:silent:regress` Roda somente o regressivo, porém no modo silencioso.
-  - `test:cy:silent:backend` Roda somente o backend, porém no modo silencioso.
-  - `test:cy:silent:frontend` Roda somente o frontend, porém no modo silencioso.
-  - `test:cy:silent:rest` Roda somente a api, porém no modo silencioso.
+  - `npm run cy:open` Roda a interface.
+  - `npm run cy:run` Roda todos os testes em terminal (log visível).
+  - `npm run cy:regress` Roda somente os testes regressivos (tag @regress).
+  - `npm run cy:backend` Roda somente os testes de backend.
+  - `npm run cy:frontend` Roda somente os testes de frontend.
+  - `npm run cy:rest` Roda somente os testes de api (tag @rest).
+  - `npm run cy:r:local` Roda em ordem: backend, frontend e testes automatizados.
+  - `start-backend` Roda o backend localmente (necessário repositório clonado).
+  - `start-frontend` Roda o frontend localmente (necessário repositório clonado).
 
 ## Stacks
 
