@@ -6,6 +6,7 @@ import { defineConfig } from "cypress";
 export default defineConfig({
   e2e: {
     //baseUrl: "http://localhost:3000",
+    screenshotOnRunFailure: false,
     specPattern: "cypress/e2e/**/**/*.feature",
     viewportWidth: 1920,
     viewportHeight: 1080,
